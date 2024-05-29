@@ -8,6 +8,69 @@ require Pod::Executable.execute_command('node', ['-p',
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
+static_libraries = [
+  'DatadogSDKReactNative',
+  'react-native-payments',
+  'stripe-react-native',
+  'JWT',
+  'CodePush',
+  'react-native-mmkv',
+  'Base64',
+  'stripe-react-native',
+  'Stripe',
+  'RNReactNativeHapticFeedback',
+  'react-native-skia/Api',
+  'react-native-skia/Jsi',
+  'react-native-skia/RNSkia',
+  'react-native-skia/SkiaHeaders',
+  'react-native-skia/Utils',
+  'react-native-skia',
+  'RNFastImage',
+  'ReactNativeMoEngage',
+  'RNSecureStorage',
+  'RNReanimated',
+  'RNScreens',
+  'VisionCamera',
+  'react-native-worklets-core'
+]
+
+exclude_distribution_libraries = [
+  'DatadogCore',
+  'DatadogCore-DatadogPrivacyInfo',
+  'DatadogCrashReporting',
+  'DatadogInternal',
+  'DatadogLogs',
+  'DatadogRUM',  
+  'DatadogTrace',
+  'DatadogWebViewTracking',
+  # repeat those above
+  'DatadogSDKReactNative',
+  'react-native-payments',
+  'stripe-react-native',
+  'JWT',
+  'CodePush',
+  'react-native-mmkv',
+  'Base64',
+  'stripe-react-native',
+  'Stripe',
+  'RNReactNativeHapticFeedback',
+  'react-native-skia/Api',
+  'react-native-skia/Jsi',
+  'react-native-skia/RNSkia',
+  'react-native-skia/SkiaHeaders',
+  'react-native-skia/Utils',
+  'react-native-skia',
+  'RNFastImage',
+  'ReactNativeMoEngage',
+  'RNSecureStorage',
+  'RNReanimated',
+  'RNScreens',
+  'VisionCamera',
+  'react-native-worklets-core'
+]
+
+use_frameworks!
+
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
@@ -28,6 +91,19 @@ target 'AwesomeProject' do
     # Pods for testing
   end
 
+  pre_install do |installer|
+    installer.pod_targets.each do |pod|
+      if static_libraries.include?(pod.name)
+        def pod.static_framework?;
+          true
+        end
+        def pod.build_type;
+          Pod::BuildType.static_library
+        end
+      end
+    end
+  end  
+
   post_install do |installer|
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
     react_native_post_install(
@@ -36,5 +112,13 @@ target 'AwesomeProject' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    installer.pods_project.targets.each do |target|
+      if !exclude_distribution_libraries.include?(target.name)
+        target.build_configurations.each do |config|
+          config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+        end
+      end 
+    end
   end
 end
