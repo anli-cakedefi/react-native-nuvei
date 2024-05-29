@@ -26,6 +26,32 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import { NVInputError, NuveiCreditCardField } from 'nuvei-simply-connect'
 
+const style = {
+  base: { // default idle state
+    fontSize: '16pt',
+    fontFamily: 'Roboto, sans-serif',
+    color: "#045d47",
+    fontSmoothing: 'antialiased',
+    '::placeholder': {
+      color: '#ccb654'
+    }
+  },
+  invalid: { //when invalid input detected o the field
+    color: '#e5312b',
+    ':focus': {
+      color: '#303238'
+    }
+  },
+  empty: { //empty field
+    color: '#BADA55',
+    '::placeholder': {
+      color: '#cc3ac2'
+    }
+  },
+  valid: { //when the input is valid
+    color: '#48ef39'
+  }
+};
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -78,7 +104,7 @@ function App(): React.JSX.Element {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <NuveiCreditCardField />
+          <NuveiCreditCardField style={style} />
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
