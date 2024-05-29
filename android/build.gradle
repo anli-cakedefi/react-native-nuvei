@@ -10,12 +10,25 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        google()
+        maven {
+            url 'https://raw.githubusercontent.com/Nuvei/nuvei-maven-android/master'
+        }
     }
     dependencies {
         classpath("com.android.tools.build:gradle")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
     }
+}
+
+allprojects {
+  repositories {
+    google()
+    maven {
+      url 'https://raw.githubusercontent.com/Nuvei/nuvei-maven-android/master'
+    }
+  }
 }
 
 apply plugin: "com.facebook.react.rootproject"

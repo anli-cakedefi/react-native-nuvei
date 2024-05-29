@@ -1,5 +1,7 @@
 PODS:
+  - Alamofire (5.7.1)
   - boost (1.83.0)
+  - CryptoSwift (1.4.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.74.1)
   - fmt (9.1.0)
@@ -7,6 +9,36 @@ PODS:
   - hermes-engine (0.74.1):
     - hermes-engine/Pre-built (= 0.74.1)
   - hermes-engine/Pre-built (0.74.1)
+  - JOSESwift (2.4.0)
+  - nuvei-simply-connect (1.1.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - NuveiSimplyConnect
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - NuveiSimplyConnect (1.1.1):
+    - Alamofire (= 5.7.1)
+    - CryptoSwift (= 1.4.0)
+    - JOSESwift (= 2.4.0)
+    - SDWebImage (= 5.15.7)
+    - SwiftyJSON (= 5.0.1)
+    - TinyConstraints (= 4.0.2)
   - RCT-Folly (2024.01.01.00):
     - boost
     - DoubleConversion
@@ -1164,7 +1196,12 @@ PODS:
     - React-logger (= 0.74.1)
     - React-perflogger (= 0.74.1)
     - React-utils (= 0.74.1)
+  - SDWebImage (5.15.7):
+    - SDWebImage/Core (= 5.15.7)
+  - SDWebImage/Core (5.15.7)
   - SocketRocket (0.7.0)
+  - SwiftyJSON (5.0.1)
+  - TinyConstraints (4.0.2)
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -1174,6 +1211,7 @@ DEPENDENCIES:
   - fmt (from `../node_modules/react-native/third-party-podspecs/fmt.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
+  - nuvei-simply-connect (from `../node_modules/nuvei-simply-connect`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
@@ -1226,8 +1264,16 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
+  https://github.com/Nuvei/nuvei-mobile-pods.git:
+    - NuveiSimplyConnect
   trunk:
+    - Alamofire
+    - CryptoSwift
+    - JOSESwift
+    - SDWebImage
     - SocketRocket
+    - SwiftyJSON
+    - TinyConstraints
 
 EXTERNAL SOURCES:
   boost:
@@ -1243,6 +1289,8 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2024-04-25-RNv0.74.1-b54a3a01c531f4f5f1904cb0770033e8b7153dff
+  nuvei-simply-connect:
+    :path: "../node_modules/nuvei-simply-connect"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTDeprecation:
@@ -1341,12 +1389,17 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
+  CryptoSwift: 7cc902df1784de3b389a387756c7d710f197730c
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   FBLazyVector: 898d14d17bf19e2435cafd9ea2a1033efe445709
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
   glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
   hermes-engine: 16b8530de1b383cdada1476cf52d1b52f0692cbc
+  JOSESwift: 7ff178bb9173ff42c6e990929a9f2fa702a34f69
+  nuvei-simply-connect: 4e8d032966d26642e0d913dabbaaab79e6616741
+  NuveiSimplyConnect: 97ed003b8981558436b69be43cf303672b62c8d4
   RCT-Folly: 02617c592a293bd6d418e0a88ff4ee1f88329b47
   RCTDeprecation: efb313d8126259e9294dc4ee0002f44a6f676aba
   RCTRequired: f49ea29cece52aee20db633ae7edc4b271435562
@@ -1394,9 +1447,12 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 86b9c5bccd239d91da33e08b4c58c6a40b7fdb48
   React-utils: 8e9c5cd66f0788e156a1fcb5cd69593ec8607611
   ReactCommon: eb4c4a9c43fcc0d93f922d0fdada24638429e515
+  SDWebImage: 25bac438318faf37e35650619ebc288a9061d292
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
+  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
+  TinyConstraints: 7b7ccc0c485bb3bb47082138ff28bc33cd49897f
   Yoga: dafebc41bc66910af33077aaa41078e89fd635bf
 
-PODFILE CHECKSUM: a9c2b75c8e409fcd2f743513bfc2d41134ceffd6
+PODFILE CHECKSUM: 63e3fad0b66600cfa7d874a16e2e7f13367ab31e
 
 COCOAPODS: 1.15.2
